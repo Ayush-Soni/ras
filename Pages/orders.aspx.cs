@@ -54,6 +54,11 @@ public partial class Pages_orders : System.Web.UI.Page
         //Update ingredients' stock
         //To find ingredients of items: Items JOIN ingredients (how?)
         //To find current stock: select * from ingredients
-        
+        Response.Redirect("order_result.aspx?" +
+            "burgerQ=" + burgerQuantity + "&" +
+            "friesQ=" + friesQuantity + "&" +
+            "gbQ=" + gbQuantity + "&" +
+            "saladQ=" + saladQuantity + "&" +
+            "sandwichQ=" + sandwichQuantity);
     }
 }
