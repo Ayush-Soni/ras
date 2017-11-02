@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -133,6 +134,28 @@ public partial class Pages_order_result : System.Web.UI.Page
         }
 
         //Calculating total cost
+        int totalOrderAmt = 0;
+        DataSet dataSetItems = new DataSet();
+        cmd.CommandText = "Select * from item";
+        try
+        {
+            conn.Open();
+            adapter.Fill(dataSetItems, "item");
+        }
+        catch (Exception)
+        {
+            Debug.WriteLine("Exception in query: Select * From item");
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        foreach (DataRow row in dataSetItems.Tables["item"].Rows) 
+        {
+            if(quantityOfItemsNeeded.ContainsKey((int)row["id"])) 
+                totalOrderAmt += quantityOfItemsNeeded[(int)row["id"]] * (int)row["price"];
+        }
 
         if(orderFailure)
         {
@@ -148,7 +171,43 @@ public partial class Pages_order_result : System.Web.UI.Page
         {
             //Update all databases with required information
             //Update relation between item and order
+            string newOrderId = new Guid().ToString();
+            foreach (KeyValuePair<int, int> item in quantityOfItemsNeeded)
+            {
+                switch(item.Key)
+                {
+                    case 1:
+                        {
+                            OrderResultLabel.Text = "<br/>Salad(s) ordered: " + quantityOfItemsNeeded[1];
+                            break;
+                        }
+                    case 2:
+                        {
+                            OrderResultLabel.Text += "<br/>Burger(s) ordered: " + quantityOfItemsNeeded[2];
+                            break;
+                        }
+                    case 3:
+                        {
+                            OrderResultLabel.Text += "<br/>Sandwich(es) ordered: " + quantityOfItemsNeeded[3];
+                            break;
+                        }
+                    case 4:
+                        {
+                            OrderResultLabel.Text += "<br/>Fries ordered: " + quantityOfItemsNeeded[4];
+                            break;
+                        }
+                    case 5:
+                        {
+                            OrderResultLabel.Text += "<br/>Garlib Bread(s) ordered: " + quantityOfItemsNeeded[5];
+                            break;
+                        }
+                }
+            }
+            OrderResultLabel.Text += "<br/>Total Order Amount: <b>Rs." + totalOrderAmt + "</b>";
             //Update order
+            
+            //SqlDateTime dateOfOrder = 
+
             //Update ingredients
         }
         //If we have enough ingredients, update ingredients stock, and show that the order is placed
