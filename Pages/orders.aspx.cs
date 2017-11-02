@@ -41,24 +41,28 @@ public partial class Pages_orders : System.Web.UI.Page
 
     protected void Button_NewOrder_Click(object sender, EventArgs e)
     {
-        int burgerQuantity=0, saladQuantity=0, sandwichQuantity=0, gbQuantity=0, friesQuantity=0;
-        burgerQuantity = getValueFromTextBox(TextBox_BurgerQuantity);
-        saladQuantity = getValueFromTextBox(TextBox_SaladQuantity);
-        sandwichQuantity = getValueFromTextBox(TextBox_SandwichQuantity);
-        gbQuantity = getValueFromTextBox(TextBox_GarlicBreadQuantity);
-        friesQuantity = getValueFromTextBox(TextBox_FriesQuantity);
-        Debug.WriteLine(burgerQuantity + " " + friesQuantity + " " + saladQuantity + " " + gbQuantity + " " + sandwichQuantity);
+        if (Page.IsValid)
+        {
+            int burgerQuantity = 0, saladQuantity = 0, sandwichQuantity = 0, gbQuantity = 0, friesQuantity = 0;
+            burgerQuantity = getValueFromTextBox(TextBox_BurgerQuantity);
+            saladQuantity = getValueFromTextBox(TextBox_SaladQuantity);
+            sandwichQuantity = getValueFromTextBox(TextBox_SandwichQuantity);
+            gbQuantity = getValueFromTextBox(TextBox_GarlicBreadQuantity);
+            friesQuantity = getValueFromTextBox(TextBox_FriesQuantity);
+            Debug.WriteLine(burgerQuantity + " " + friesQuantity + " " + saladQuantity + " " + gbQuantity + " " + sandwichQuantity);
 
-        //Now we are to calculate bill, and upload data to database
-        //Perform checks for availability of ingredients
-        //Update ingredients' stock
-        //To find ingredients of items: Items JOIN ingredients (how?)
-        //To find current stock: select * from ingredients
-        Response.Redirect("order_result.aspx?" +
-            "burgerQ=" + burgerQuantity + "&" +
-            "friesQ=" + friesQuantity + "&" +
-            "gbQ=" + gbQuantity + "&" +
-            "saladQ=" + saladQuantity + "&" +
-            "sandwichQ=" + sandwichQuantity);
+            //Now we are to calculate bill, and upload data to database
+            //Perform checks for availability of ingredients
+            //Update ingredients' stock
+            //To find ingredients of items: Items JOIN ingredients (how?)
+            //To find current stock: select * from ingredients
+
+            Response.Redirect("order_result.aspx?" +
+                "burgerQ=" + burgerQuantity + "&" +
+                "friesQ=" + friesQuantity + "&" +
+                "gbQ=" + gbQuantity + "&" +
+                "saladQ=" + saladQuantity + "&" +
+                "sandwichQ=" + sandwichQuantity);
+        }
     }
-}
+ }

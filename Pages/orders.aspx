@@ -61,6 +61,12 @@
                             </asp:TableRow>
 
 						</asp:Table>
+                        <asp:CompareValidator ID="BurgerQuantityValidator" runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="TextBox_BurgerQuantity" ErrorMessage="Burger Quantity value must be a whole number" ForeColor ="Red"/>
+                        <asp:CompareValidator ID="SaladQuantityValidator" runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="TextBox_SaladQuantity" ErrorMessage="Salad Quantity value must be a whole number" ForeColor ="Red"/>
+                        <asp:CompareValidator ID="FriesQuantityValidator" runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="TextBox_FriesQuantity" ErrorMessage="Fries Quantity value must be a whole number" ForeColor ="Red"/>
+                        <asp:CompareValidator ID="SandwichQuantityValidator" runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="TextBox_SandwichQuantity" ErrorMessage="Sandwich Quantity value must be a whole number" ForeColor ="Red"/>
+                        <asp:CompareValidator ID="GarlicBreadQuantityValidator" runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="TextBox_GarlicBreadQuantity" ErrorMessage="Garlic Bread Quantity value must be a whole number" ForeColor ="Red"/>
+                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Following error occurs....." ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Width="500"  ForeColor="Red" Font-Size="Large" />
 						<asp:Button ID="Button_NewOrder" runat="server" Text="Place Order" OnClick="Button_NewOrder_Click" />
 				</div>
 			</section>
