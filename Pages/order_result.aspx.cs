@@ -262,7 +262,25 @@ public partial class Pages_order_result : System.Web.UI.Page
                 }
             }
             //If we have enough ingredients, update ingredients stock, and show that the order is placed
+            HttpCookie myCookie = Request.Cookies["balanceCookie"];
+            if (myCookie == null)
+            {
+                myCookie = new HttpCookie("balanceCookie");
+                myCookie.Values["balance"] = totalOrderAmt.ToString();
+                //No cookie found or cookie expired.
+                //Handle the situation here, Redirect the user or simply return;
+            }
 
+            //ok - cookie is found.
+            //Gracefully check if the cookie has the key-value as expected.
+            if (!string.IsNullOrEmpty(myCookie.Values["balance"]))
+            {
+                int balance = int.Parse(myCookie.Values["balance"].ToString());
+                balance += totalOrderAmt;
+                myCookie.Values["balance"] = balance.ToString();
+                Response.Cookies.Add(myCookie);
+                //Yes userId is found. Mission accomplished.
+            }
         }
     }
     protected void Button_BackToMain_Click(object sender, EventArgs e)

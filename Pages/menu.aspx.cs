@@ -14,7 +14,7 @@ public partial class Pages_menu : System.Web.UI.Page
 
     protected void OnClick_Accounting(object sender, EventArgs e)
     {
-
+        Response.Redirect("accounting.aspx");
     }
 
     protected void OnClick_OrderProcessing(object sender, EventArgs e)
